@@ -45,10 +45,11 @@ function findExt(msg) {
             element.name.toLowerCase().indexOf(msg.toLowerCase()) != -1) {
             replyMsg += `${element.cname} ${element.name} 分機: ${element.ext}\n`;
         }
-        if (replyMsg.length==0) {
-            replyMsg = '查無此人，請輸入中文名字或英文名字';
-        }
+
     });
+    if (replyMsg.length==0) {
+        replyMsg = '查無此人，請輸入中文名字或英文名字';
+    }    
     return replyMsg;
 }
 
