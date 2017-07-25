@@ -14,8 +14,8 @@ var bot = linebot({
 bot.on('message', function(event) {
     if (event.message.type=='text') {
         var msg = event.message.text;
-        var replyMsg = rateAnswer(msg);
-        console.log(extension);
+        // var replyMsg = rateAnswer(msg);
+        var replyMsg = findExt(msg);
 
         event.reply(replyMsg).then(function(data) {
             console.log(`replyMsg: ${replyMsg}`);
@@ -36,6 +36,21 @@ app.listen(port, function() {
     console.log(`linebot now running on port ${port}`);
 });
 
+
+
+function findExt(msg) {
+    var replyMsg = '';
+    extension.exts.forEach(function(element) {
+        if (element.cname.toLowerCase().indexOf(msg.toLowerCase()) != -1 ||
+            element.name.toLowerCase().indexOf(msg.toLowerCase()) != -1) {
+            replyMsg += `${element.cname} ${element.name} 分機: ${element.ext}\n`;
+        }
+        if (replyMsg.length==0) {
+            replyMsg = '查無此人，請輸入中文名字或英文名字';
+        }
+    });
+    return replyMsg;
+}
 
 
 function rateAnswer(msg) {
